@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/supabase'
 import { notFound } from 'next/navigation'
+import Link from 'next/link'
 import { TrendingUp, TrendingDown, Minus, Eye, ShoppingCart, PiggyBank, CheckCircle, XCircle, AlertCircle, Calendar } from 'lucide-react'
 
 // ── Config ─────────────────────────────────────────────────────────────────────
@@ -475,6 +476,23 @@ export default async function StockDetailPage({ params }: Props) {
 
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
+      {/* Ticker tabs */}
+      <div className="flex gap-1 flex-wrap">
+        {Object.entries(TICKER_CONFIG).map(([t, c]) => (
+          <Link
+            key={t}
+            href={`/stocks/${t.toLowerCase()}`}
+            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
+              t === upper
+                ? 'bg-indigo-600 text-white shadow-sm'
+                : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
+            }`}
+          >
+            {t}
+          </Link>
+        ))}
+      </div>
+
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div>
